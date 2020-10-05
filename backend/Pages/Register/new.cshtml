@@ -1,0 +1,91 @@
+﻿@*// model.register.new.HTML....................................*@
+
+@page
+@model backend.Pages.register.NewModel
+@{
+    <title>New Enroll</title>
+}
+
+<br />
+<h2 class="text-info">Creat New Enroll</h2>
+<br />
+
+<div class="border container" style="padding:30px;">
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            @* for user *@
+            <div class="col-3">
+                <label asp-for="Allreg.UserId"></label>
+            </div>
+            <div class="col-6">
+                
+                
+                <select asp-for="Allreg.UserId">
+                    @foreach (var item1 in Model.AllUserList)
+                    {
+                        var userName = item1.Text;
+                        var userID = item1.Value;
+                        <option value="@userID" class="form-control">@userName</option>
+                    }
+                </select>
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Allreg.UserId" class="text-danger"></span>
+            </div>
+
+            @* for workshop *@
+            <div class="col-3">
+                <label asp-for="Allreg.WorkshopId"></label>
+            </div>
+            <div class="col-6">
+                <select asp-for="Allreg.WorkshopId">
+                    @foreach (var item1 in Model.AllWorkshopList)
+                    {
+                        var workshopName = item1.Text;
+                        var workshopID = item1.Value;
+                        <option value="@workshopID" class="form-control">@workshopName</option>
+                    }
+                </select>
+                
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Allreg.WorkshopId" class="text-danger"></span>
+            </div>
+
+
+            @* for date *@
+            
+            <div class="col-6">
+                <input asp-for="Allreg.RegDate" class="form-control" value="@DateTime.Now.Day/@DateTime.Now.Month/@DateTime.Now.Year" type="hidden"/>
+                <br />
+            </div>
+         
+
+            @* for time *@
+            
+            <div class="col-6">
+                <input asp-for="Allreg.RegTime" class="form-control" value="@DateTime.Now.TimeOfDay.Hours:@DateTime.Now.TimeOfDay.Minutes:@DateTime.Now.TimeOfDay.Seconds " type="hidden"/>
+                <br />
+            </div>
+            
+
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+                <input type="submit" value="Create" class="btn btn-primary form-control" />
+            </div>
+            <div class="col-3">
+                <a asp-page="Index" class="btn btn-success form-control">Back To Enrollments List</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

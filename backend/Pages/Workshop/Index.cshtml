@@ -1,4 +1,6 @@
-﻿@page
+﻿@*// model.workshop.index.HTML....................................*@
+
+@page
 @model backend.Pages.workshop.IndexModel
 @{
     <title>Workshop List</title>
@@ -34,25 +36,26 @@
                     </tr>
                     @foreach (var item in Model.Workshops)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(m => item.WorkshopName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => item.Lecturer)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => item.StartDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => item.EndDate)
-                        </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.WorkshopName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Lecturer)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.StartDate.Date.Day)/@Html.DisplayFor(m => item.StartDate.Date.Month)/@Html.DisplayFor(m => item.StartDate.Date.Year)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.EndDate.Date.Day)/@Html.DisplayFor(m => item.EndDate.Date.Month)/@Html.DisplayFor(m => item.EndDate.Date.Year)
+                            </td>
 
-                        <td>
-                            <button asp-page-handler="Delete" asp-route-id="@item.WorkshopId" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm text-white">Delete</button>
-                            <a asp-page="Edit" asp-route-id="@item.WorkshopId" class="btn btn-success btn-sm text-white">Edit</a>
-                        </td>
-                    </tr>
+                            <td>
+                                <button asp-page-handler="Delete" asp-route-id="@item.WorkshopId" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm text-white">Delete</button>
+                                <a asp-page="Edit" asp-route-id="@item.WorkshopId" class="btn btn-success btn-sm text-white">Edit / View</a>
+                                <a asp-page="" asp-route-id="@item.WorkshopId " class="btn btn-success btn-sm text-white">Enrolled List</a>
+                            </td>
+                        </tr>
                     }
 
                 </table>

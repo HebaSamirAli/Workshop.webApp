@@ -12,9 +12,9 @@ namespace backend.model
         public int RegId { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         [Required]
-        public string WorkshopId { get; set; }
+        public int WorkshopId { get; set; }
 
         public String RegDate { get; set; }
         public String RegTime { get; set; }

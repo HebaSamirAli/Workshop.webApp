@@ -32,13 +32,11 @@ namespace backend.Migrations
                     b.Property<string>("RegTime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("WorkshopId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WorkshopId")
+                        .HasColumnType("int");
 
                     b.HasKey("RegId");
 

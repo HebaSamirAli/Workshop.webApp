@@ -1,0 +1,66 @@
+﻿@*// model.register.index.HTML....................................*@
+
+@page
+@model backend.Pages.register.IndexModel
+@{
+    <title>Enrollments List</title>
+}
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Enrollments List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-page="New" class="btn btn-info form-control text-white"> Create New Enroll</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.AllReg.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="AllReg.FirstOrDefault().RegId"></label>
+                        </th>
+                        <th>
+                            @*Html.DisplayNameFor(m => m.Books.FirstOrDefault().Author)*@
+                            <label asp-for="AllReg.FirstOrDefault().RegDate"></label>
+                        </th>
+                        <th>
+                            <label asp-for="AllReg.FirstOrDefault().RegTime"></label>
+                        </th>
+                        
+                    </tr>
+                    @foreach (var item in Model.AllReg)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.RegId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.RegDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.RegTime)
+                            </td>
+                            
+
+                            <td>
+                                <button asp-page-handler="Delete" asp-route-id="@item.RegId" onclick="return confirm('Are you sure you want to delete user from workshop?')" class="btn btn-danger btn-sm text-white">Delete</button>
+    
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <p>No Users available</p>
+            }
+        </form>
+    </div>
+</div>
+
