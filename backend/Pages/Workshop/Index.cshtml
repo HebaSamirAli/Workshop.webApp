@@ -1,0 +1,66 @@
+﻿@page
+@model backend.Pages.workshop.IndexModel
+@{
+    <title>Workshop List</title>
+}
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Workshop List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-page="New" class="btn btn-info form-control text-white">Create New Workshop</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Workshops.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Workshops.FirstOrDefault().WorkshopName"></label>
+                        </th>
+                        <th>
+                            @*Html.DisplayNameFor(m => m.Books.FirstOrDefault().Author)*@
+                            <label asp-for="Workshops.FirstOrDefault().Lecturer"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Workshops.FirstOrDefault().StartDate"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Workshops.FirstOrDefault().EndDate"></label>
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.Workshops)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.WorkshopName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Lecturer)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.EndDate)
+                        </td>
+
+                        <td>
+                            <button asp-page-handler="Delete" asp-route-id="@item.WorkshopId" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm text-white">Delete</button>
+                            <a asp-page="Edit" asp-route-id="@item.WorkshopId" class="btn btn-success btn-sm text-white">Edit</a>
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <p>No Workshops available</p>
+            }
+        </form>
+    </div>
+</div>

@@ -1,0 +1,128 @@
+﻿@page
+@model backend.Pages.Workshop.NewModel
+
+@{
+    <title>New Workshop</title>
+}
+
+<br />
+<h2 class="text-info">Creat New Book</h2>
+<br />
+
+<div class="border container" style="padding:30px;">
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            @* for name *@
+            <div class="col-3">
+                <label asp-for="Workshop.WorkshopName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.WorkshopName" class="form-control" />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.WorkshopName" class="text-danger"></span>
+            </div>
+
+            @* for lecturer *@
+            <div class="col-3">
+                <label asp-for="Workshop.Lecturer"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.Lecturer" class="form-control" />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.Lecturer" class="text-danger"></span>
+            </div>
+
+
+            @* for start date *@
+            <div class="col-3">
+                <label asp-for="Workshop.StartDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.StartDate" class="form-control" type="date" date-date-format="DD MMM YYYY " />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.StartDate" class="text-danger"></span>
+            </div>
+
+            @* for end date *@
+            <div class="col-3">
+                <label asp-for="Workshop.EndDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.EndDate" class="form-control" type="date" date-date-format="DD MMM YYYY " />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.EndDate" class="text-danger"></span>
+            </div>
+
+            @* for start time *@
+            <div class="col-3">
+                <label asp-for="Workshop.StartTime"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.StartTime" class="form-control" type="time" value="07:00" />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.StartTime" class="text-danger"></span>
+            </div>
+
+            @* for end time *@
+            <div class="col-3">
+                <label asp-for="Workshop.EndTime"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.EndTime" class="form-control" type="time" value="10:00" />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.EndTime" class="text-danger"></span>
+            </div>
+
+            @* for address *@
+            <div class="col-3">
+                <label asp-for="Workshop.WorkshopAddress"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.WorkshopAddress" class="form-control" />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.WorkshopAddress" class="text-danger"></span>
+            </div>
+
+            @* for description *@
+            <div class="col-3">
+                <label asp-for="Workshop.Description"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Workshop.Description" class="form-control" />
+                <br />
+            </div>
+            <div class="col-3">
+                <span asp-validation-for="Workshop.Description" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+                <input type="submit" value="Create" class="btn btn-primary form-control" />
+            </div>
+            <div class="col-3">
+                <a asp-page="Index" class="btn btn-success form-control">Back To Workshop List</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
