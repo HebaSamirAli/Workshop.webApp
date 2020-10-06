@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.model;
 using System.Text.Json;
 using Newtonsoft.Json;
+using backend.Services.RegisterService;
 
 namespace backend.controllers
 {
@@ -14,59 +15,34 @@ namespace backend.controllers
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly ApplicationDbContetxt _db;
-        public RegisterController(ApplicationDbContetxt db){_db = db;}
+        private readonly IRegisterService _registerService;
+        public RegisterController(IRegisterService registerService)
+        {
+            _registerService = registerService;
+        }
 
         // ******************* API FUNCTIONS ********************
 
-        // GET ALL USER ENROLLMENTS ......................... (ok done call)
+        // GET ALL USER ENROLLMENTS ....................
         [HttpPost("{id}")]
         public async Task<IActionResult> GetUserEnrollments(int id)
         {
-            List<Register> enrollmentsFromDb = new List<Register>();
-
-            foreach (Register reg in _db.Register)
-            {
-                if (reg.UserId == id)
-                {
-                    enrollmentsFromDb.Add(reg);
-                }
-            };
-            if (enrollmentsFromDb.Count <= 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(JsonConvert.SerializeObject(enrollmentsFromDb));
+            return Ok(JsonConvert.SerializeObject(_registerService.GetUserEnrollments(id)));
         }
 
-        // ADD NEW ENROLL ..................................... (ok done call)
+        // ADD NEW ENROLL ............................
         [HttpPost]
         public async Task<IActionResult> AddNewEnroll(Register reg)
         {
-            // check if this user inrolled in the workshop befor
-
-            _db.Register.Add(reg);
-            await _db.SaveChangesAsync();
-            return Ok("Successfully Added");
+            return Ok(_registerService.AddNewEnroll(reg));
         }
 
 
-        // DELETE ENROLLMENT ........................ (ok done call)
+        // DELETE ENROLLMENT ........................ 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEnrollment(int id)
-        {
-            var bookFromDb = _db.Register.FirstOrDefault(u => u.RegId == id);
-            
-            if (bookFromDb == null)
-            {
-                return BadRequest("not found data record");
-            }
-            
-            _db.Register.Remove(bookFromDb);
-            await _db.SaveChangesAsync();
-            
-            return Ok("Successfully Deleted");
+        {   
+            return Ok(_registerService.DeleteEnrollment(id));
         }
     }
 }

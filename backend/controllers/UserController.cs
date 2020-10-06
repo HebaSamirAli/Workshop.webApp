@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using backend.model;
 using Newtonsoft.Json;
+using backend.Services.UserService;
 
 namespace backend.controllers
 {
@@ -13,40 +14,27 @@ namespace backend.controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDbContetxt _db;
-        public UserController(ApplicationDbContetxt db){_db = db;}
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         // ******************* API FUNCTIONS ********************
 
         // ADD NEW USER ..................................... (ok)
         [HttpPost]
         [Route("adduser")]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddNewUser(User user)
         {
-            // check if the user data is inserted befor
-            var UserFromDb = _db.User.FirstOrDefault(u => u.UserName == user.UserName);
-            if (UserFromDb != null)
-            {
-                return BadRequest("same user name added");
-            }
-            _db.User.Add(user);
-            await _db.SaveChangesAsync();
-            return Ok("Successfully added");
+            return Ok(_userService.AddNewUser(user));
         }
 
         // UPDATE USER DATA ................................. (ok done call)
         [HttpPut]
         public async Task<IActionResult> UpdateUser(User user)
         {
-            // check if the user data is exists
-            var UserFromDb = _db.User.FirstOrDefault(u => u.UserName == user.UserName);
-            if (UserFromDb == null)
-            {
-                return BadRequest("user is not exist");
-            }
-            _db.User.Update(user);
-            await _db.SaveChangesAsync();
-            return Ok("Successfully updated");
+            return Ok(_userService.UpdateUser(user));
         }
 
         // GET USER Data ................................. (Ok done call)
@@ -54,43 +42,14 @@ namespace backend.controllers
         
         public async Task<IActionResult> GetUserData(int id)
         {
-            User userFromDb = new User();
-            foreach (User user in _db.User)
-            {
-                if (user.UserId == id)
-                {
-                    userFromDb.UserId = user.UserId;
-                    userFromDb.UserName = user.UserName;
-
-                }
-            };
-            if (userFromDb == null)
-            {
-                return NotFound();
-            }
-            return Ok(JsonConvert.SerializeObject(userFromDb));
+            return Ok(JsonConvert.SerializeObject(_userService.GetUserData(id)));
         }
 
         // check for right password ............................ (ok done call)
         [HttpPost("login")]
         public async Task<IActionResult> CheckForUserVerification(User user)
         {
-            User userFromDb = new User();
-            
-            foreach (User _user in _db.User)
-            {
-                //HashCode password.........
-
-                if (_user.UserName == user.UserName && _user.UserEmail == user.UserEmail && _user.Password == user.Password)
-                {
-                    userFromDb = _user;
-                }
-            };
-            if (userFromDb == null)
-            {
-                return NotFound("error login");
-            }
-            return Ok(userFromDb.UserId);
+           return Ok(await _userService.CheckForUserVerification(user));
         }
 
         /////////////////////////// for check data //////////////////////////

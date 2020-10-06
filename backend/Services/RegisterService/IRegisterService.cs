@@ -6,10 +6,10 @@ using backend.model;
 
 namespace backend.Services.RegisterService
 {
-    interface IRegisterService
+     public interface IRegisterService
     {
-        List<Register> GetUserEnrollments(int id);
-        Boolean AddNewEnroll(Register reg);
-        Boolean DeleteEnrollment(int id);
+        Task<List<Register>> GetUserEnrollments(int id);
+        Task<string> AddNewEnroll(Register reg);
+        Task<String> DeleteEnrollment(int id);
     }
 }

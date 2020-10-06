@@ -14,34 +14,36 @@ namespace backend.Services.UserService
         {
             _db = db;
         }
-        public bool AddNewUser(User user)
-        {
-            // check if the user data is inserted befor
-            if (CheckIfUserIsExists(user))
-            { return false; }
-            _db.User.Add(user);
-            _db.SaveChangesAsync();
-            return true;
-        }
-
-        public bool UpdateUser(User user)
+        public async Task<string> AddNewUser(User user)
         {
             // check if the user data is exists
-            if (!CheckIfUserIsExists(user))
-            { return false; }
-            _db.User.Update(user);
-            _db.SaveChangesAsync();
-            return true;
+            var check = await CheckIfUserIsExists(user);
+            if (check)
+            { return "Error this user name is added before"; }
+            _db.User.Add(user);
+            await _db.SaveChangesAsync();
+            return "Successfully added";
         }
 
-        public bool CheckIfUserIsExists(User user)
+        public async Task<string> UpdateUser(User user)
+        {
+            // check if the user data is exists
+            var check = await CheckIfUserIsExists(user);
+            if (!check)
+            { return "Error there is no user with this name"; }
+            _db.User.Update(user);
+            await _db.SaveChangesAsync();
+            return "successfully updated";
+        }
+
+        public async Task<Boolean> CheckIfUserIsExists(User user)
         {
             var UserFromDb = _db.User.FirstOrDefault(u => u.UserName == user.UserName);
             if (UserFromDb == null) { return false; }
             return true;
         }
 
-        public User GetUserData(int id)
+        public async Task<User> GetUserData(int id)
         {
             User userFromDb = new User();
             foreach (User user in _db.User)
@@ -55,7 +57,7 @@ namespace backend.Services.UserService
             return userFromDb;
         }
 
-        public User CheckForUserVerification(User user)
+        public async Task<User> CheckForUserVerification(User user)
         {
             User userFromDb = new User();
             foreach (User _user in _db.User)

@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using backend.model;
+using backend.Services;
 using Newtonsoft.Json;
+using backend.Services.WorkshopService;
 
 namespace backend.controllers
 {
@@ -13,8 +15,11 @@ namespace backend.controllers
     [ApiController]
     public class WorkshopsListController : ControllerBase
     {
-        private readonly ApplicationDbContetxt _db;
-        public WorkshopsListController(ApplicationDbContetxt db){_db = db;}
+        private readonly IWorkshopService _workshopService;
+        public WorkshopsListController(IWorkshopService workshopService)
+        {
+            _workshopService = workshopService;
+        }
 
         // ******************* API FUNCTIONS ********************
 
@@ -23,10 +28,7 @@ namespace backend.controllers
         [Route("GetAll")]
         public async Task<IActionResult> GetAllWorkshops()
         {
-            List<Workshop> workshopsFromDb = new List<Workshop>();
-            foreach (Workshop workshop in _db.Workshop) {workshopsFromDb.Add(workshop);};
-            if (workshopsFromDb.Count <= 0) {return NotFound();}
-            return Ok(JsonConvert.SerializeObject(workshopsFromDb));
+            return Ok(JsonConvert.SerializeObject(_workshopService.GetAllWorkshops()));
         }
 
 
@@ -34,13 +36,7 @@ namespace backend.controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWorkshopDetails(int id)
         {
-            Workshop workshopsFromDb = new Workshop();
-            foreach (Workshop workshop in _db.Workshop)
-            {
-                if (workshop.WorkshopId == id) { workshopsFromDb = workshop; }
-            };
-            if (workshopsFromDb == null) { return NotFound(); }
-            return Ok(JsonConvert.SerializeObject(workshopsFromDb));
+            return Ok(JsonConvert.SerializeObject(_workshopService.GetWorkshopDetails(id)));
         }
     }
 }

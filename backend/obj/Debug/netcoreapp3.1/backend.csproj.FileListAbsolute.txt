@@ -388,3 +388,11 @@ C:\Users\HSAAA\Desktop\workshop\backend\backend\obj\Debug\netcoreapp3.1\Razor\Pa
 C:\Users\HSAAA\Desktop\workshop\backend\backend\obj\Debug\netcoreapp3.1\Razor\Pages\register\new.cshtml.g.cs
 C:\Users\HSAAA\Desktop\workshop\backend\backend\obj\Debug\netcoreapp3.1\Razor\Pages\User\WorkshopsForUser.cshtml.g.cs
 C:\Users\HSAAA\Desktop\workshop\backend\backend\obj\Debug\netcoreapp3.1\Razor\Pages\Workshop\UsersForWorkshop.cshtml.g.cs
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\angular.json
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\e2e\tsconfig.json
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\package-lock.json
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\package.json
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\tsconfig.app.json
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\tsconfig.json
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\tsconfig.spec.json
+C:\Users\HSAAA\Desktop\workshop\backend\backend\bin\Debug\netcoreapp3.1\frontend\tslint.json

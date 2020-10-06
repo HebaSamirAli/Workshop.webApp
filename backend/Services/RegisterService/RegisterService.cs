@@ -13,31 +13,35 @@ namespace backend.Services.RegisterService
         {
             _db = db;
         }
-        public bool AddNewEnroll(Register reg)
+        public async Task<string> AddNewEnroll(Register reg)
         {
-            _db.Register.Add(reg);
-            _db.SaveChangesAsync();
-            return true;
-        }
-
-        public bool DeleteEnrollment(int id)
-        {
-            var bookFromDb = _db.Register.FirstOrDefault(u => u.RegId == id);
-
-            if (bookFromDb == null)
+            //checked if the user enrolled before with the workshop
+            var registerFromDb = _db.Register.FirstOrDefault(u => (u.RegId == reg.RegId) && (u.WorkshopId == reg.WorkshopId));
+            if (registerFromDb != null)
             {
-                return false;
+                return "You have enrolled in this workshop befor";
             }
-
-            _db.Register.Remove(bookFromDb);
-            _db.SaveChangesAsync();
-            return true;
+            _db.Register.Add(reg);
+            await _db.SaveChangesAsync();
+            return "Successfully Added";
         }
 
-        public List<Register> GetUserEnrollments(int id)
+        public async Task<string> DeleteEnrollment(int id)
+        {
+            // check if enrollment is in db
+            var registerFromDb = _db.Register.FirstOrDefault(u => u.RegId == id);
+            if (registerFromDb == null)
+            {
+                return "Error deleting or you don't enrolled for this workshop before";
+            }
+            _db.Register.Remove(registerFromDb);
+            await _db.SaveChangesAsync();
+            return "Successfully Deleted";
+        }
+
+        public async Task<List<Register>> GetUserEnrollments(int id)
         {
             List<Register> enrollmentsFromDb = new List<Register>();
-
             foreach (Register reg in _db.Register)
             {
                 if (reg.UserId == id)
@@ -47,5 +51,7 @@ namespace backend.Services.RegisterService
             };
             return enrollmentsFromDb;
         }
+
+      
     }
 }

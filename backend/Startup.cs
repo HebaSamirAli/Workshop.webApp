@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using backend.model;
+using backend.Services.WorkshopService;
+using backend.Services.UserService;
+using backend.Services.RegisterService;
 
 namespace backend
 {
@@ -28,6 +31,10 @@ namespace backend
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddDbContext<ApplicationDbContetxt>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
+
+            services.AddScoped<IWorkshopService, WorkshopService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRegisterService,RegisterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace backend.Services.UserService
 {
-    interface IUserService
+    public interface IUserService
     {
-        Boolean CheckIfUserIsExists(User user);
-        User GetUserData(int id);
-        User CheckForUserVerification(User user);
-        Boolean AddNewUser(User user);
-        Boolean UpdateUser(User user);
+        Task<Boolean> CheckIfUserIsExists(User user);
+        Task<User> GetUserData(int id);
+        Task<User> CheckForUserVerification(User user);
+        Task<string> AddNewUser(User user);
+        Task<string> UpdateUser(User user);
     }
 }

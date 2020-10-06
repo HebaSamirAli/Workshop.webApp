@@ -14,14 +14,14 @@ namespace backend.Services.WorkshopService
             _db = db;
         }
         
-        public List<Workshop> GetAllWorkshops()
+        public async Task<List<Workshop>> GetAllWorkshops()
         {
             List<Workshop> workshopsFromDb = new List<Workshop>();
             foreach (Workshop workshop in _db.Workshop) { workshopsFromDb.Add(workshop); };
             return workshopsFromDb;
         }
 
-        public Workshop GetWorkshopDetails(int id)
+        public async Task<Workshop> GetWorkshopDetails(int id)
         {
             Workshop workshopsFromDb = new Workshop();
             foreach (Workshop workshop in _db.Workshop)

@@ -6,10 +6,10 @@ using backend.model;
 
 namespace backend.Services.WorkshopService
 {
-    interface IWorkshopService
+    public interface IWorkshopService
     {
-        List<Workshop> GetAllWorkshops();
-        Workshop GetWorkshopDetails(int id);
+        Task<List<Workshop>> GetAllWorkshops();
+        Task<Workshop> GetWorkshopDetails(int id);
 
     }
 }
