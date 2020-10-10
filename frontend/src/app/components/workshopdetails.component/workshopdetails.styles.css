@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.workshop-details-view {
+    width: 300px;
+    padding: 10px;
+    justify-content: center;
+    margin: auto;
+    backface-visibility: hidden;
+    
+  }
+  .data-list {
+    border-radius: 5px;
+    border: 1px solid darkslategrey;
+    justify-content: center;
+    padding: 10px;
+    margin: auto;
+  }

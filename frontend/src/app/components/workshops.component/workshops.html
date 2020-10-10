@@ -1,0 +1,13 @@
+
+<div class="all-View">
+   <div class="card-container" >
+     <div class="card" *ngFor="let workshop of allWorkshops" (click) = "onClicked(workshop)">
+        <h2> {{workshop.WorkshopName}} </h2>
+        <h4> {{workshop.Lecturer}} </h4>
+      </div> 
+   </div>
+   <div>
+     <WorkshopDetails [workshop]="choosedWorkshop" ></WorkshopDetails>
+   </div>
+  
+</div>
